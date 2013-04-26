@@ -1,0 +1,80 @@
+Integrated Surface Data (ISD) example.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+One Data record:
+
+0188 010010999992013010100004+70933-008667FM-12+0009ENJA V0203501N009010012019N0035001N1-00331-00411099021ADDAA106000021AY151061AY221061GF108991081061001501999999MA1999999098901MD1210101+9999MW1561REMSYN088AAXX  01001 01001 11235 83509 11033 21041 39890 49902 52010 69901 75652 886// 333 91116;
+
+Information extrated from: 
+ftp://ftp.ncdc.noaa.gov/pub/data/noaa/ish-format-document.pdf
+
+File name format:
+USAFid-WBANid-year.gz: 010010-99999-2013.gz
+
+POS: 1-4 Total characters of the record
+0188
+POS: 5-10 USAF Master Station Catalog Idetifier
+010010
+POS: 11-15 WBAN Identifier
+99999
+POS: 16-23 Geophysical point observation data
+20130101
+POS: 24-27 Geophysical point observation time
+0000
+POS: 28-28 Geophysical point observation flag
+4
+POS: 29-34 latitude coordinate (degrees x 1000)
++70933
+POS: 35-41 longitude coordinate (degrees)
+-008667
+POS: 42-46 Geophysical report type code
+FM-12
+POS: 47-51 Elevation dimension (meters)
++0009
+POS: 52-56 Weather station call letter id
+ENJA 
+POS: 57-60 Quality control process name
+V020
+POS: 61-63 Wind direction angle (degrees)
+350
+POS: 64-64 Wind observation direction quality code
+1
+POS: 65-65 Wind observation type code
+N
+POS: 66-69 Wind speed rate (meters per second)
+0090
+POS: 70-70 wind speed quality code
+1
+POS: 71-75 Sky condition ceilling heigh dimension
+00120
+POS: 76-76
+1
+POS: 77-77 sky condition ceilling determintaion code
+9
+POS: 78-78 sky condition CAVOK code
+N
+POS: 79-84 Visibility observation distance dimension
+003500
+POS: 85-85 Visibility distance quality code
+1
+POS: 86-86 Visibility variability code
+N
+POS: 87-87 Visibility quailty variability code
+1
+POS: 88-92 air temperature (degress celsius x 10) <------------------------
+-0033
+POS: 93-93 Air temperature quality code
+1
+POS: 94-98 Dew point temperature (degree celsius x 10)
+-0041
+POS: 99-99 Dew point quality code
+1
+POS: 100-104 Sea level pressure (hectopascals x 10)
+09902
+POS: 105-105 Sea level pressure quality code
+1
+
+Additional Data Section: Precipitation Data, Weahter Occurrence Data, Climate
+Reference Network Unique Data, Network Metada .... and so on.
+
+ADDAA106000021AY151061AY221061GF108991081061001501999999MA1999999098901MD1210101+9999MW1561REMSYN088AAXX 01001 01001 11235 83509 11033 21041 39890 49902 52010 69901 75652 886// 333 91116;
