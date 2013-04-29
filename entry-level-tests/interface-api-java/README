@@ -1,0 +1,8 @@
+$ hadoop namenode -format
+$ start-all.sh
+$ echo "hello world" > hello.txt
+$ hadoop fs -put hello.txt hello.txt
+$ export HADOOP_CLASSPATH=build/URLCat.jar
+hadoop URLCat hdfs://localhost/user/root/hello.txt
+hello world
+
