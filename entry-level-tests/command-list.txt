@@ -1,0 +1,9 @@
+- hadoop namenode -format
+- hadoop fsck / -files -blocks
+
+- hadoop fs -put ../rawdata/ rawdata
+- hadoop fs -put max_temperature bin/max_temperature
+- hadoop fs -ls
+- hadoop fs -rm /user/root/bin/max_temperature
+
+- hadoop dfsadmin -safemode leave
