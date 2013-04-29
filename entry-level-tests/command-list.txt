@@ -5,5 +5,6 @@
 - hadoop fs -put max_temperature bin/max_temperature
 - hadoop fs -ls
 - hadoop fs -rm /user/root/bin/max_temperature
-
+- hadoop fs -copyFromLocal hello.txt hello.txt
+- hadoop fs -copyToLocal hello.txt hello.txt.copy
 - hadoop dfsadmin -safemode leave

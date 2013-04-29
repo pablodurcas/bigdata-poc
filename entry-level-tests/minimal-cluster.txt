@@ -1,0 +1,139 @@
+Making a cluster under /home/hadoop user
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+1. Making user "hadoop" in all nodes (6 nodes):
+
+host000 -> the master node
+host00[1-6] -> the slaves nodes
+
+$ host000 #> adduser hadoop
+$ host000 #> for i in $(seq 6); do ssh host00${i} "adduser hadoop"; done
+$ su - hadoop
+$ host000 $> ssh-keygen -t rsa -f ~/.ssh/id_rsa
+$ host000> for i in $(seq 6); do ssh-copy-id -i ~/.ssh/id_rsa.pub hadoop@host00${i}; done
+
+2. Setting up the minimal enviroment:
+
+$ host000 #> cat /etc/hadoop/hadoop-env.sh
+...
+export JAVA_HOME=/usr/java/jdk1.7.0_21/
+export HADOOP_CONF_DIR=/home/hadoop/etc
+...
+export HADOOP_LOG_DIR=/home/hadoop/log
+export HADOOP_SECURE_DN_LOG_DIR=/home/hadoop/log
+export HADOOP_PID_DIR=/home/hadoop/run
+export HADOOP_SECURE_DN_PID_DIR=/home/hadoop/run
+
+3. Setting up XML minimal configuration files, in hadoop user:
+
+$ cd /home/hadoop
+$ tree etc
+/home/hadoop/etc/
+├── core-site.xml
+├── hdfs-site.xml
+├── mapred-site.xml
+├── masters
+└── slaves
+
+(see below)
+
+3. Copy minimal files in nodes:
+
+$ host000 $> for i in $(seq 6); do scp /etc/hadoop/hadoop-env.sh host00${i}:; done
+$ host000 $> for i in $(seq 6); do scp -r /etc host00${i}:; done
+
+4. Format the HDFS:
+
+$ host000 $> hadoop namenode -format
+
+5. Populate HDFS filesystem:
+
+$ hadoop fs -put ../../rawdata/ rawdata
+
+6. Start daemons:
+
+$ host000 $> start-all.sh
+
+7. Execute a job:
+
+$ export HADOOP_CLASSPATH=build/MaxTemperature.jar
+$ hadoop MaxTemperature rawdata/ output
+
+8. Get the results:
+
+$ hadoop fs -copyToLocal output outpu.copy
+
+- The XML contents:
+
+<!-- core-site.xml -->
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+	<property>
+		<name>fs.default.name</name>
+		<value>hdfs://mncarsnas</value>
+		<final>true</final>
+	</property>
+</configuration>
+
+<!-- hdfs-site.xml -->
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+	<property>
+		<!-- edit log and the filesystem image folder -->
+		<name>dfs.name.dir</name>
+		<value>/home/hadoop/hadoop.data/hdfs/mncarsnas</value>
+		<final>true</final>
+	</property>
+	<property>
+		<!-- Where datanode to store its blocks -->
+		<name>dfs.data.dir</name>
+		<value>/home/hadoop/hadoop.data/hdfs/data</value>
+		<final>true</final>
+	</property>
+</configuration>
+
+<!-- mapred-site.xml -->
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+	<property>
+		<name>mapred.job.tracker</name>
+		<value>mncarsnas:8021</value>
+		<final>true</final>
+	</property>
+	<property>
+		<!-- local MR temporary storage -->
+		<name>mapred.local.dir</name>
+		<value>/home/hadoop/hadoop.data/mapred/local</value>
+		<final>true</final>
+	</property>
+	<property>
+		<name>mapred.system.dir</name>
+		<value>/home/hadoop/hadoop.data/mapred/system</value>
+		<final>true</final>
+	</property>
+	<property>
+		<name>mapred.tasktracker.map.tasks.maximum</name>
+		<value>7</value>
+		<final>true</final>
+	</property>
+	<property>
+		<name>mapred.tasktracker.reduce.tasks.maximum</name>
+		<value>7</value>
+		<final>true</final>
+	</property>
+</configuration>
+
+slaves:
+
+host001
+host002
+host003
+host004
+host005
+host006
+
+master:
+(leave empty if no master replica)
