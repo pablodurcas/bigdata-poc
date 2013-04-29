@@ -7,8 +7,13 @@ include(UseJava)
 set(CMAKE_VERBOSE_MAKEFILE 1)
 set(CMAKE_JAVA_INCLUDE_PATH /usr/share/hadoop/hadoop-core-1.1.2.jar)
 
-set(SRC
+set(SRC1
     src/URLCat.java
 )
 
-add_jar(URLCat ${SRC})
+set(SRC2
+    src/FileSystemCat.java
+)
+
+add_jar(URLCat ${SRC1})
+add_jar(FileSystemCat ${SRC2})

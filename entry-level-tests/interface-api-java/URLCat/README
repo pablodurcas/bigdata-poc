@@ -1,8 +1,33 @@
+URLCat example
+~~~~~~~~~~~~~~
+
+Example of java.net.URL object to open a stream to read the data from.
+
 $ hadoop namenode -format
 $ start-all.sh
 $ echo "hello world" > hello.txt
 $ hadoop fs -put hello.txt hello.txt
 $ export HADOOP_CLASSPATH=build/URLCat.jar
-hadoop URLCat hdfs://localhost/user/root/hello.txt
+hadoop URLCat hdfs://localhost/user/javi/hello.txt
 hello world
+
+One of the simplest ways to read a file from a Hadoop filesystem is by using a
+java.net.URL object to open a stream to read the data from. 
+
+setURLStreamHandlerFactory method can be called only once per JVM, so it is 
+typically executed in a static block. This limitation means that if some
+other part of your program—perhaps a third-party component outside your 
+control—sets a URLStreamHandlerFactory, you won’t be able to use this approach 
+for reading data from Hadoop.
+
+The alternative is to use the FileSystem API to open an input stream for a file.
+
+FileSystemCat
+~~~~~~~~~~~~~
+
+This example reading data using the Hadoop Filesystem API. 
+
+% hadoop FileSystemCat hdfs://localhost/user/javi/hello.txt
+hello world
+
 
