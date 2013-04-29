@@ -1,0 +1,59 @@
+Minimal configuration for one Node cluster for testing
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+1. cat /etc/hadoop/core-site.xml
+
+<?xml version="1.0"?>
+<!-- core-site.xml -->
+<configuration>
+	<property>
+		<name>fs.default.name</name>
+		<value>hdfs://localhost</value>
+	</property>
+</configuration>
+
+
+fs.default.name, set to hdfs://localhost/, which is used to set a default 
+filesystem for Hadoop. Filesystems are specified by a URI, and here we have 
+used an hdfs URI to configure Hadoop to use HDFS by default. The HDFS daemons 
+will use this property to determine the host and port for the HDFS namenode.
+We’ll be running it on localhost, on the default HDFS port, 8020. And HDFS 
+clients will use this property to work out where the namenode is running so 
+they can connect to it.
+
+2. cat /etc/hadoop/hdfs-site.xml
+
+<?xml version="1.0"?>
+<!-- hdfs-site.xml -->
+<configuration>
+	<property>
+		<name>dfs.replication</name>
+		<value>1</value>
+	</property>
+</configuration>
+
+We set the second property, dfs.replication, to 1 so that HDFS doesn’t 
+replicate filesystem blocks by the default factor of three. When running with 
+a single datanode, HDFS can’t replicate blocks to three datanodes, so it would 
+perpetually warn about blocks being under-replicated. This setting solves that 
+problem.
+
+3. cat /etc/hadoop/mapred-site.xml
+
+<?xml version="1.0"?>
+<!-- mapred-site.xml -->
+<configuration>
+	<property>
+		<name>mapred.job.tracker</name>
+		<value>localhost:8021</value>
+	</property>
+</configuration>
+
+If this configuration property is set to local (the default), the local job 
+runner is used. This runner runs the whole job in a single JVM. It’s designed 
+for testing and for running MapReduce programs on small datasets.
+
+Alternatively, if mapred.job.tracker is set to a colon-separated host and port 
+pair, then the property is interpreted as a jobtracker address, and the runner 
+submits the job to the jobtracker at that address.
+
