@@ -1,0 +1,4 @@
+Minimal configurations for setting up a cluster testbed.
+
+1. For hadoop-1.1.2-1.x86_64 RPM package.
+2. For hadoop-2.0.4-alpha.tar.gz binaries.
