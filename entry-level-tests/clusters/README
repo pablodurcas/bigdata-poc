@@ -63,13 +63,15 @@ It's better modify the .bashrc of hadoop user with enviroment variables.
 
 	$ host000 $> hadoop namenode -format
 
-5. Populate HDFS filesystem:
 
-	$ hadoop fs -put ../../rawdata/ rawdata
-
-6. Start daemons:
+5. Start daemons:
 
 	$ host000 $> start-all.sh (this command is deprecated, see below)
+
+
+6. Populate HDFS filesystem:
+
+	$ hadoop fs -put ../../rawdata/ rawdata
 
 7. Execute a job:
 
