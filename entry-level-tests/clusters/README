@@ -5,7 +5,7 @@ Minimal configurations for setting up a cluster testbed.
 This configuration is based on hadoop-1.1.2-1.x86_64 RPM package.
 
 
-2. Hadoop 2.x (YARN)
+2. Hadoop 2.x aka MapReduce NextGen aka YARN aka MRv2
 
 This installation is based on hadoop-2.0.4-alpha.tar.gz binaries.
 
