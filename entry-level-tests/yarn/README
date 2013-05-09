@@ -1,0 +1,29 @@
+Build
+~~~~~
+
+$ mkdir build
+$ cmake ..
+$ make
+$ cd ..
+
+We can run hadoop just running JVM (java -version, hadoop -version):
+
+$ sh run.sh
+
+Otherwise we can run hadoop example using hadoop itself (hadoop version):
+
+$ export HADOOP_CLASSPATH=build/MaxTemperature.jar
+$ hadoop MaxTemperature ../rawdata/ outputfolder
+
+The necessary changes for properly run the test:
+
+sudo vim /etc/hadoop/hadoop-env.sh
+...
+#export JAVA_HOME=/usr/lib/jvm/java-6-sun
+export JAVA_HOME=/usr/lib/jvm/java-7-oracle/
+...
+#export HADOOP_CLIENT_OPTS="-Xmx128m $HADOOP_CLIENT_OPTS"
+export HADOOP_CLIENT_OPTS="-Xmx4096m $HADOOP_CLIENT_OPTS"
+
+
+
