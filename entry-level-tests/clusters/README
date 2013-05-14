@@ -16,7 +16,7 @@ Hadoop 1.x
 - Configuration for one host master (NN and JT in the same host):
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-1. Making user "hadoop" in all nodes (6 nodes):
+1. Making user "hadoop" in all nodes (7 nodes):
 
 	host000 -> the master node
 	host00[1-6] -> the slaves nodes
